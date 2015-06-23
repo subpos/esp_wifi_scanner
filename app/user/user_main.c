@@ -76,15 +76,15 @@ scan_done(void* arg,STATUS status)
             bss_link = bss_link->next.stqe_next;
         }
         
-        ets_uart_printf("START\r\n");
+        ets_uart_printf("S\r\n"); //Start
         ets_uart_printf("%d\r\n",i);
         while (i > 0)
         {
-            ets_uart_printf("\\x%02x,%d,%d\r\n",ssid[i-1],rssi[i-1],chan[i-1]);
+            ets_uart_printf("%02x,%d,%d\r\n",ssid[i-1],rssi[i-1],chan[i-1]);
             i--;
         }
         
-        ets_uart_printf("END\r\n");
+        ets_uart_printf("E\r\n"); //End
     }
     scan_complete = true;
     
