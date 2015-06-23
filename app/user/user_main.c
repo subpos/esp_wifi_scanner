@@ -37,7 +37,9 @@ long clockCounter = 0;
 
 LOCAL os_timer_t trilaterate_timer;
 
-uint8 ssid[30][33];  //30 ssids
+uint8  ssid[30][33];  //30 ssids
+uint16 rssi[30];
+uint8  chan[30];
 
 int scan_complete;
 
@@ -64,6 +66,8 @@ scan_done(void* arg,STATUS status)
                     if (os_strlen(bss_link->ssid) <= 32)
                     {
                         os_memcpy(ssid[i], bss_link->ssid, os_strlen(bss_link->ssid));
+                        chan[i] = bss_link->channel;
+                        rssi[i] = bss_link->rssi;
                         i++;
                     }
             }
@@ -73,7 +77,7 @@ scan_done(void* arg,STATUS status)
     }
     while (i > 0)
     {
-        ets_uart_printf("\\x%02x\r\n",ssid[i-1]);
+        ets_uart_printf("\\x%02x,%d,%d\r\n",ssid[i-1],rssi[i-1],chan[i-1]);
         i--;
     }
     scan_complete = true;
