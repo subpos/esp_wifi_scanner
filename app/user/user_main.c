@@ -75,16 +75,24 @@ scan_done(void* arg,STATUS status)
 
             bss_link = bss_link->next.stqe_next;
         }
-        
-        ets_uart_printf("S\r\n"); //Start
-        ets_uart_printf("%d\r\n",i);
-        while (i > 0)
-        {
-            ets_uart_printf("%02x,%d,%d\r\n",ssid[i-1],rssi[i-1],chan[i-1]);
-            i--;
+        if (i > 0) {
+            ets_uart_printf("S\r\n"); //Start
+            ets_uart_printf("%d\r\n",i);
+            while (i > 0)
+            {
+                int j = 0;
+                while (j < 31) // Subpos SSIDs are 31 long
+                {
+                    ets_uart_printf("%02x",ssid[i-1][j]);
+                    j++;
+                }
+                ets_uart_printf(",%d,%d\r\n",rssi[i-1],chan[i-1]);
+                ets_uart_printf(",%d,%d\r\n",rssi[i-1],chan[i-1]);
+                i--;
+            }
+            
+            ets_uart_printf("E\r\n"); //End
         }
-        
-        ets_uart_printf("E\r\n"); //End
     }
     scan_complete = true;
     
