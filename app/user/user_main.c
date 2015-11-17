@@ -77,7 +77,7 @@ scan_done(void* arg,STATUS status)
         }
         if (i > 0) {
             ets_uart_printf("S\r\n"); //Start
-            ets_uart_printf("%d\r\n",i);
+            ets_uart_printf("%d\r\n",i); //Print number of items in scan
             while (i > 0)
             {
                 int j = 0;
