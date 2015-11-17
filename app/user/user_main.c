@@ -87,7 +87,6 @@ scan_done(void* arg,STATUS status)
                     j++;
                 }
                 ets_uart_printf(",%d,%d\r\n",rssi[i-1],chan[i-1]);
-                ets_uart_printf(",%d,%d\r\n",rssi[i-1],chan[i-1]);
                 i--;
             }
             
